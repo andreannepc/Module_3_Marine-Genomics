@@ -1,0 +1,34 @@
+---
+title: "Week3_Workshop1"
+output: html_document
+date: "2026-07-07"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Preliminaries 
+##1- Introduction to Command-Line and RStudio
+##2- Logging in
+##3- The RStudio Web Interface
+##4- Basic unix commands
+##5- Unix file system
+##6- So where am I?
+##7- Unix command format
+#Other useful unix commands
+##1- Create directory
+### new directory:mkdir command 
+##2- Moving around
+### Move to work in the command_line directory
+
+#Learn about grep
+##50 flags 
+###1) -i -> case insensitive match 2) -n -> report line number of matches 3) -c -> report all files that contain the pattern 4) -w -> match whole words only
+
+#Sequence File Formats
+##Fasta vs Fastaq
+
+```
+
