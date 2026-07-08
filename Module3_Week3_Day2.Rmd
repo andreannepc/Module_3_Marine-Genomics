@@ -1,0 +1,29 @@
+---
+title: "Module3_Week3_Day1"
+output: html_document
+date: "2026-07-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Keep in mind 
+#pwd (shows directory)
+#cd .. allows you to backtrack 
+#mkdir add new directory
+
+
+#Redbean Assembly 
+#the assembly took about 2 min
+#How good does the assembly look in terms of contiguity and completeness?
+##The assembly is largely complete in total length (~3.64 Mb) with no gaps or ambiguous bases, but it remains moderately fragmented, containing 120 contigs. Contiguity is modest, with an N50 of ~48 kb and a largest contig of ~144 kb, indicating that while the assembly is usable for downstream analyses, additional polishing or long‑read support would improve structural continuity.
+
+#Run redbean with higher coverage (5min to run)
+#he dataset contains 40,000 reads with an average read length of ~4 kb and an N50 of ~7.1 kb, which is typical for moderate‑quality long‑read data at ~20× coverage. The largest read is ~43 kb, which is good, but the overall read length distribution is on the shorter side, meaning the data will assemble but may struggle with repeats or produce a fragmented assembly unless supplemented with higher coverage or longer reads.
+
+#Flye Assembly 
+
+```
+
