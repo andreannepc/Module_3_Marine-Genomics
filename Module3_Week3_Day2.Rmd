@@ -24,6 +24,11 @@ knitr::opts_chunk$set(echo = TRUE)
 #he dataset contains 40,000 reads with an average read length of ~4 kb and an N50 of ~7.1 kb, which is typical for moderate‑quality long‑read data at ~20× coverage. The largest read is ~43 kb, which is good, but the overall read length distribution is on the shorter side, meaning the data will assemble but may struggle with repeats or produce a fragmented assembly unless supplemented with higher coverage or longer reads.
 
 #Flye Assembly 
+#After running tail -f slurm-XXX.out
+#squeue used for jobs that are running
+#assembly-stats run_flye_large.sh
+
+#Inspect assembly graphs with bandage
 
 ```
 
