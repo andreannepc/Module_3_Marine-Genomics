@@ -29,6 +29,16 @@ knitr::opts_chunk$set(echo = TRUE)
 #assembly-stats run_flye_large.sh
 
 #Inspect assembly graphs with bandage
+##Repeat the exercise above using the high coverage (20x) assembly generated with Flye. 
+##Can you spot the same repeat region? 
+##How has increased coverage changed the appearance of the assembly.
+##Which contigs look like fully assembled chromosomes? Which ones look like plasmids?
+
+
+#Check Assembly Quality with QUAST
+
+#Genomic arrangemnt of repeats 
+
 
 ```
 
