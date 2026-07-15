@@ -32,17 +32,96 @@ ggplot(rl_data, aes(x=length/1000)) +
   geom_histogram(binwidth = 2) +
   xlab("Read Length Kb") + ylab("Number of Reads")
 
+#Step 1: Rank all reads from longest to shortest
+#Step 2: Create a new column with the cumulative sum of read lengths (starting from longest read).
+#Step 3: Find the read at which the cumulative sum surpasses 50% of the total read volume (ie total sum of all read lengths)
+
+total_len <- sum(rl_data$length)
+
+rl_data %>% 
+  arrange(desc(length)) %>% 
+  mutate(cumsum = cumsum(length)) %>% 
+  filter(cumsum>total_len/2) %>% 
+  head(n=1)
 ```
 
 ```{r}
-#Step 2 
+#Step 2 Assembly
+
+#Activity: Flye will report the read N50. How does this compare with the value we computed earlier?
+
+#What is the size and coverage of the largest contig in the assembly? 4.68 Mb
+
+#Your assembly should contain at least one (probably several) large circular contigs. Based on size and coverage can you guess which contig corresponds to the genome of the most abundant species in our mock community?
+##Flye reported a read N50 of ~7 kb, which is far smaller than the contig N50 of ~2.0 Mb generated during assembly. The largest contig in the graph is 4.68 Mb in length with an estimated coverage of ~15×. Based on its size, circular structure, and high coverage, this contig most likely represents the genome of the most abundant species in the mock community.
+
+#Locate two circular chromosomes for Vibrio alfacsensis in bandage. Use the outputs from gc.awk to help with this. 
+##In Bandage, I identified two large circular contigs whose sizes and GC content match the Vibrio alfacsensis reference chromosomes. The ~3.17 Mb contig (GC ≈ 44.4%) corresponds to Chromosome I, and the ~1.55 Mb contig (GC ≈ 43.8%) corresponds to Chromosome II. These two circular nodes align closely with the GC‑content outputs from gc.awk, confirming their identity as the Vibrio alfacsensis chromosomes.
+
 ```
 
 ```{r}
-#Step 3 
+#Step 3 Basic Assembly QC
+gc <- read_tsv("workshop3_metasm/flye/mock/assembly.gc.tsv",col_names = c("#seq_name","length","GC"))
+info <- read_tsv("workshop3_metasm/flye/mock/assembly_info.txt") 
+
+gc_info <- info %>% 
+  left_join(gc)
+
+gc_info %>% 
+  ggplot(aes(x=GC)) + geom_histogram() + ylab("Number of contigs")
+
+#Figure 2: Histogram of GC content values values for assembled contigs in a flye assembly of the mock community dataset.
+
+gc_info %>% 
+  filter(GC<0.8) %>% 
+  filter(cov.<25) %>% 
+  ggplot(aes(x=GC,y=cov.)) + geom_point(aes(size=length)) + ylab("Coverage depth")
+
+#Figure 3: Coverage and GC content of assembled contigs in the mock community assembly. Contig lengths are shown through point size.
+
+#In the plot of GC versus coverage there is a cluster of contigs with high GC content (>60%) and coverage depth around 7.5x. Which species are these likely to belong to? The cluster of contigs with high GC content (\>60%) and coverage depth around 7.5x is likely to be *Desulfovibrio sulfodismutans*.
+
+install.packages("ggrepel")
+library(ggrepel)
+gc_info %>% 
+  filter(GC<0.8) %>% 
+  filter(cov.<25) %>% 
+  ggplot(aes(x=GC,y=cov.)) + geom_point(aes(size=length)) + geom_label_repel(aes(label=`#seq_name`))
+
+#Figure 4: Coverage and GC content of assembled contigs in the mock community assembly. Contig lengths are shown through point size. Only contigs with more than 25x coverage and less than 80% GC coverage are shown.
+
+#Calculate the total length of your assembly using R by taking the sum of the contig lengths column. What proportion of the reference sequence does this represent? 
+
+# Sum reference lengths
+sum_length <- sum(gc$length)
+sum_length_gc_info <- sum(gc_info$length)
+
+# Assembly length
+assembly_length <- (sum_length/total_len)*100
+
+#The total length is 148,928,130 bp and the proportion is 12.3. I don't know if this is right my graph look different compared to the workbook.
+
 ```
 
 ```{r}
-#Step4
+#Step4: Binning
+#Grouping contigs based on nucleotide composition and read coverage using metabat2 on Terminal.
+
+# Prepare an input file summarising read depth information for all contigs
+
+# Creating a compatible file with same order as previous 
+
+# Run metabat
+
+```
+
+```{r}
+#Step 5: Check bin quality with checkM
+
+#Which bin has the highest level of contamination? Why do you think this might be?
+```
+
+
 ```
 
