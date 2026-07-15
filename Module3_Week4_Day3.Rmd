@@ -1,0 +1,48 @@
+---
+title: "Module3)Week4_Day3"
+output: html_document
+date: "2026-07-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Step 1 Examine Reads
+
+#read length distributions 
+# Unzips the raw data and sends the data to standard output
+#zcat raw_data/raw_reads.fastq.gz \
+# This is a pipe. It sends output from the previous command as input to the next command
+# Here we select only the top 40k lines in the file. This equates to 10k reads. It should be plenty to get some stats
+#  head -n 40000 | \
+# This is a small bioawk program. It prints the name of each sequence followed by its length
+ # bioawk -c fastx '{print $name,length($seq)}' \
+# Send outputs to a file called read_lengths.txt
+  # read_lengths.txt
+
+#Make a graph
+
+library(tidyverse)
+
+rl_data <- read_tsv("read_lengths.txt",col_names = c("id","length"), show_col_types = FALSE)
+
+ggplot(rl_data, aes(x=length/1000)) + 
+  geom_histogram(binwidth = 2) +
+  xlab("Read Length Kb") + ylab("Number of Reads")
+
+```
+
+```{r}
+#Step 2 
+```
+
+```{r}
+#Step 3 
+```
+
+```{r}
+#Step4
+```
+
